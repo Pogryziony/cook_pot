@@ -10,9 +10,7 @@ class LoginButton extends StatelessWidget {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {
-
-        },
+        onPressed: () {},
         child: const Text(
           'Login',
           textAlign: TextAlign.center,
