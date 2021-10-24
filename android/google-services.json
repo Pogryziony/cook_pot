@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "427317636934",
+    "project_id": "cook-pot",
+    "storage_bucket": "cook-pot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427317636934:android:04964e22ef6386e3437f47",
+        "android_client_info": {
+          "package_name": "com.github.pogryziony.cook_pot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427317636934-38jt7d7onh8udgsme7qe27i0585cgjdo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_4ngVUslHx1QLsS8DZHQ_zrftPNQeex8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427317636934-38jt7d7onh8udgsme7qe27i0585cgjdo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
