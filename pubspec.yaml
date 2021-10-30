@@ -15,9 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
   flutter_bloc: ^7.0.0
+  flutter_swiper_null_safety: ^1.0.2
+  equatable: ^2.0.0
 
 
 dev_dependencies:
+  lint: ^1.5.3
   flutter_test:
     sdk: flutter
 
