@@ -1,3 +1,4 @@
+import 'package:cook_pot/modules/main_menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
@@ -8,11 +9,18 @@ class LoginButton extends StatelessWidget {
       child: Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(30.0),
-        color: Colors.orange,
+        color: Colors.lightGreen,
         child: MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) {
+                return MainMenuScreen();
+              }),
+            );
+          },
           child: const Text(
             'Login',
             textAlign: TextAlign.center,
