@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RemindPasswordButton extends StatelessWidget {
+class GoogleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,13 +11,15 @@ class RemindPasswordButton extends StatelessWidget {
         child: MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {},
-          child: const Text(
-            'Forgot password',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          child: Container(
+            child: Text(
+              'Sign in via Google',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
