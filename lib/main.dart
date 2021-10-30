@@ -1,3 +1,4 @@
+import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_pot/core/auth/login/login_screen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: LoginScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
