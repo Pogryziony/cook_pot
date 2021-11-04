@@ -73,7 +73,7 @@ class MainMenuScreen extends StatelessWidget {
                 leading: Icon(Icons.logout),
                 title: const Text('Logout'),
                 onTap: () => {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) => LoginScreen()))
