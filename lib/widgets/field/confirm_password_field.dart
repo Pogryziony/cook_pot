@@ -1,7 +1,7 @@
 import 'package:cook_pot/utils/helpers/validate_password.dart';
 import 'package:flutter/material.dart';
 
-class PasswordField extends StatelessWidget {
+class ConfirmPasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +12,7 @@ class PasswordField extends StatelessWidget {
         obscureText: true,
         validator: validatePassword,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          contentPadding: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
           hintText: 'Password',
           hintStyle: const TextStyle(color: Colors.white),
           disabledBorder: OutlineInputBorder(

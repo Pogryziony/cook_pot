@@ -1,10 +1,10 @@
-import 'package:cook_pot/core/auth/regiter/registration_form_screen.dart';
 import 'package:flutter/material.dart';
 
-class RegisterButton extends StatelessWidget {
+class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.fromLTRB(60,0,60,0),
       child: Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(30.0),
@@ -15,12 +15,12 @@ class RegisterButton extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (BuildContext context) {
-                return RegistrationFormScreen() ;
+                return ;
               }),
             );
           },
           child: const Text(
-            'Register user',
+            'Register',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
