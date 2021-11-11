@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Recipe extends Equatable{
   final String name;
   final String? image;
-  final String ingredients;
+  final Map ingredients;
   final int preparationTime;
-  final String preparationSteps;
-  final String? tags;
+  final Map preparationSteps;
+  final Map? tags;
   final double? ratings;
   final String type;
 
@@ -28,15 +28,14 @@ class Recipe extends Equatable{
     return Recipe(
       name: data['name'] as String,
       image: data['image'] as String,
-      ingredients: data['ingredients'] as String,
+      ingredients: data['ingredients'] as Map,
       preparationTime: data['preparation_time'] as int,
-      preparationSteps: data['preparation_steps'] as String,
-      tags: data['tags'] as String,
+      preparationSteps: data['preparation_steps'] as Map,
+      tags: data['tags'] as Map,
       ratings: data['ratings'] as double,
       type: data['type'] as String,
     );
   }
-
 
   @override
   List<Object> get props => <Object> [
