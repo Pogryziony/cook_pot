@@ -9,9 +9,7 @@ class Recipe extends Equatable {
   final Map? preparationSteps;
   final Map? tags;
   final String? type;
-  final double? ratings;
-
-
+  final int? ratings;
 
   Recipe({this.name,this.image,this.ingredients,this.preparationTime,this.preparationSteps,this.tags,this.type,this.ratings});
 
@@ -26,7 +24,7 @@ class Recipe extends Equatable {
         preparationSteps: data['preparationSteps'] as Map,
         tags: data['tags'] as Map,
         type: data['type'] as String,
-        ratings: data['ratings'] as double,
+        ratings: data['ratings'] as int,
       );
     }
 

@@ -10,7 +10,6 @@ class PasswordField extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
         obscureText: true,
-        validator: validatePassword,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: 'Password',

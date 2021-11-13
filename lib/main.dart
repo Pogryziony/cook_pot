@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cook Pot',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.lightGreen,
       ),
       home: WelcomeScreen(),
     );
