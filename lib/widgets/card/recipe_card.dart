@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CategoryCard extends StatelessWidget {
-  CategoryCard({required this.categoryName, required this.assetPath, required this.onPressed});
-
-  final String categoryName;
+class RecipeCard extends StatelessWidget {
+  const RecipeCard({required this.recipeName, required this.assetPath, required this.onPressed, required this.preparationTime});
+  final String recipeName;
   final String assetPath;
-
+  final int preparationTime;
+  /// Callback that fires when the user taps on this widgets
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CategoryCard extends StatelessWidget {
       onTap: onPressed,
       child: Card(
         child: Container(
-          height: 200,
+          height: 400,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(assetPath),
@@ -24,7 +24,7 @@ class CategoryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                categoryName,
+                recipeName,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -34,6 +34,17 @@ class CategoryCard extends StatelessWidget {
                     ..color = Colors.blueGrey.shade900.withAlpha(85),
                 ),
               ),
+              Text(
+                preparationTime.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  background: Paint()
+                    ..color = Colors.blueGrey.shade900.withAlpha(85),
+                ),
+              )
             ],
           ),
         ),
