@@ -1,5 +1,4 @@
 import 'package:cook_pot/widgets/button/login_button.dart';
-import 'package:cook_pot/widgets/button/medium_button.dart';
 import 'package:cook_pot/widgets/button/submit_button.dart';
 import 'package:cook_pot/widgets/field/confirm_password_field.dart';
 import 'package:cook_pot/widgets/field/email_field.dart';
@@ -27,9 +26,9 @@ class _RegistrationFormScreenState extends State<RegistrationFormScreen> {
             ),
           ),
           child: Container(
-            margin: const EdgeInsets.only(top: 90),
-            padding: const EdgeInsets.all(45.0),
-            child: Column(
+            margin: const EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.all(60.0),
+            child: ListView(
               children: <Widget>[
                 SizedBox(
                   child: Image.asset(
@@ -42,10 +41,7 @@ class _RegistrationFormScreenState extends State<RegistrationFormScreen> {
                 EmailField(),
                 PasswordField(),
                 ConfirmPasswordField(),
-                MediumButton(
-                  onPressed: () => {},
-                  text: 'Register',
-                ),
+                SubmitButton(),
               ],
             ),
           ),
