@@ -1,52 +1,37 @@
-import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class Recipe extends Equatable{
-  final String name;
+class Recipe extends Equatable {
+  final String? name;
   final String? image;
-  final Map ingredients;
-  final int preparationTime;
-  final Map preparationSteps;
+  final Map? ingredients;
+  final int? preparationTime;
+  final Map? preparationSteps;
   final Map? tags;
+  final String? type;
   final double? ratings;
-  final String type;
 
-  const Recipe({
-    required this.name,
-    this.image,
-    required this.ingredients,
-    required this.preparationTime,
-    required this.preparationSteps,
-    this.tags,
-    this.ratings,
-    required this.type,
-  });
+
+
+  Recipe({this.name,this.image,this.ingredients,this.preparationTime,this.preparationSteps,this.tags,this.type,this.ratings});
 
   factory Recipe.fromFirestore(DocumentSnapshot doc) {
-    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-    return Recipe(
-      name: data['name'] as String,
-      image: data['image'] as String,
-      ingredients: data['ingredients'] as Map,
-      preparationTime: data['preparation_time'] as int,
-      preparationSteps: data['preparation_steps'] as Map,
-      tags: data['tags'] as Map,
-      ratings: data['ratings'] as double,
-      type: data['type'] as String,
-    );
-  }
+      return Recipe(
+        name: data['name'] as String,
+        image: data['image'] as String,
+        ingredients: data['ingredients'] as Map,
+        preparationTime: data['preparationTime'] as int,
+        preparationSteps: data['preparationSteps'] as Map,
+        tags: data['tags'] as Map,
+        type: data['type'] as String,
+        ratings: data['ratings'] as double,
+      );
+    }
 
   @override
-  List<Object> get props => <Object> [
-    name,
-    image!,
-    ingredients,
-    preparationTime,
-    preparationSteps,
-    tags!,
-    ratings!,
-    type,
-  ];
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 
 }
