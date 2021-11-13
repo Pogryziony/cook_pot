@@ -1,4 +1,6 @@
 import 'package:cook_pot/core/auth/login/login_screen.dart';
+import 'package:cook_pot/modules/recipes/appetizers_bloc.dart';
+import 'package:cook_pot/modules/recipes/appetizers_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +19,14 @@ class MainMenuScreen extends StatelessWidget {
             CategoryCard(
               categoryName: 'Appetizers',
               assetPath: 'assets/images/appetizer.png',
-              onPressed: () => {},
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return BlocProvider(
+                      create: (BuildContext context) =>
+                      AppetizersBloc()..add(LoadAppetizersEvent()),
+                      child: AppetizersScreen(),
+                    );
+                  })),
             ),
             CategoryCard(
               categoryName: 'Main dishes',

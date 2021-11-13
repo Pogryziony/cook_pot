@@ -1,9 +1,6 @@
-import 'package:cook_pot/widgets/button/login_button.dart';
 import 'package:cook_pot/widgets/button/medium_button.dart';
-import 'package:cook_pot/widgets/button/submit_button.dart';
 import 'package:cook_pot/widgets/field/confirm_password_field.dart';
 import 'package:cook_pot/widgets/field/email_field.dart';
-import 'package:cook_pot/widgets/field/login_field.dart';
 import 'package:cook_pot/widgets/field/password_field.dart';
 import 'package:cook_pot/widgets/field/username_field.dart';
 import 'package:flutter/material.dart';
