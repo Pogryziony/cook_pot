@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({required this.recipeName, required this.assetPath, required this.onPressed, required this.preparationTime});
+  const RecipeCard({
+    required this.recipeName,
+    required this.assetPath,
+    required this.callbackFunction,
+    required this.preparationTime
+  });
+
   final String recipeName;
   final String assetPath;
   final int preparationTime;
-  /// Callback that fires when the user taps on this widgets
-  final VoidCallback onPressed;
+  final VoidCallback callbackFunction;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: callbackFunction,
       child: Card(
         child: Container(
           height: 400,

@@ -10,7 +10,6 @@ class ConfirmPasswordField extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
         obscureText: true,
-        validator: validatePassword,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
           hintText: 'Password',
