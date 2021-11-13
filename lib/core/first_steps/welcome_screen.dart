@@ -1,8 +1,6 @@
-import 'package:cook_pot/widgets/button/google_sign_in_button.dart';
-import 'package:cook_pot/widgets/button/redirect_to_login.dart';
-import 'package:cook_pot/widgets/button/register_button.dart';
-import 'package:cook_pot/widgets/button/remind_password_button.dart';
-import 'package:cook_pot/widgets/slider/welcome_slider.dart';
+import 'package:cook_pot/core/auth/login/login_screen.dart';
+import 'package:cook_pot/widgets/button/google_button.dart';
+import 'package:cook_pot/widgets/button/large_button.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -25,37 +23,52 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           child: Container(
             margin: const EdgeInsets.only(top: 100),
-            padding: const EdgeInsets.all(36.0),
-            child: ListView(
+            padding: const EdgeInsets.all(35.0),
+            child: Column(
               children: <Widget>[
-                WelcomeSlider(),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: new Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: RedirectToLoginButton(),
-                      ),
-                    ),
-                    Expanded(
-                      child: new Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: GoogleSignInButton(),
-                      ),
-                    ),
-                  ],
+                Container(
+                  child: Image.asset(
+                    'assets/images/logo/cook_pot_logo_150px_transparent.png',
+                    fit: BoxFit.fitHeight,
+                    height: 200,
+                  ),
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: RemindPasswordButton(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: RegisterButton(),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5,15,5,2.5),
+                        child: LargeButton(
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (BuildContext context) {
+                                return LoginScreen();
+                              }),
+                            ),
+                          },
+                          text: 'Sign in with Email',
+                          centered: true,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: GoogleSignInButton(
+                          key: UniqueKey(),
+                          onPressed: () {},
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: LargeButton(
+                          onPressed: () => {},
+                          text: 'Sign up with Email',
+                          centered: true,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
