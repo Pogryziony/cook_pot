@@ -36,4 +36,26 @@ class FirestoreService {
             Recipe.fromFirestore(doc))
             .toList());
   }
+
+  Future<List<Recipe>> getDesserts() {
+    final Query<Map<String, dynamic>> ref =
+    _db.collection('recipes').where('type',isEqualTo: 'dessert');
+    return ref.get().then((QuerySnapshot<Map<String, dynamic>> snapshot) =>
+        snapshot
+            .docs
+            .map((QueryDocumentSnapshot<Map<String, dynamic>> doc) =>
+            Recipe.fromFirestore(doc))
+            .toList());
+  }
+
+  Future<List<Recipe>> getDrinks() {
+    final Query<Map<String, dynamic>> ref =
+    _db.collection('recipes').where('type',isEqualTo: 'drink');
+    return ref.get().then((QuerySnapshot<Map<String, dynamic>> snapshot) =>
+        snapshot
+            .docs
+            .map((QueryDocumentSnapshot<Map<String, dynamic>> doc) =>
+            Recipe.fromFirestore(doc))
+            .toList());
+  }
 }
