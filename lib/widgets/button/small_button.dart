@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SmallUniversalButton extends StatelessWidget {
+class SmallButton extends StatelessWidget {
 
   final String visibleName;
   final VoidCallback? callbackFunction;
 
-  SmallUniversalButton({required this.visibleName, this.callbackFunction});
+  SmallButton({required this.visibleName, this.callbackFunction});
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       resizeToAvoidBottomInset: false,
+      floatingActionButton: BackButton(
+        onPressed: () => Navigator.pop(context),
+        color: Colors.white,
+      ),
       body: Center(
         child: Container(
           decoration: const BoxDecoration(
@@ -46,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: 'Login',
                         centered: true,
                         onPressed: () => {
+                          print(LoginField().loginFieldController.text),
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (BuildContext context) {
@@ -67,9 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                     ],
-                  ) ,
+                  ),
                 )
-
               ],
             ),
           ),

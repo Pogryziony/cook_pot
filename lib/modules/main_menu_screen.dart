@@ -1,4 +1,7 @@
 import 'package:cook_pot/core/auth/login/login_screen.dart';
+import 'package:cook_pot/core/first_steps/signup_screen.dart';
+import 'package:cook_pot/core/first_steps/welcome_screen.dart';
+import 'package:cook_pot/core/settings/settings_screen.dart';
 import 'package:cook_pot/modules/recipes/appetizers_bloc.dart';
 import 'package:cook_pot/modules/recipes/appetizers_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
@@ -21,12 +24,12 @@ class MainMenuScreen extends StatelessWidget {
               assetPath: 'assets/images/appetizer.png',
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
-                    return BlocProvider(
-                      create: (BuildContext context) =>
+                return BlocProvider(
+                  create: (BuildContext context) =>
                       AppetizersBloc()..add(LoadAppetizersEvent()),
-                      child: AppetizersScreen(),
-                    );
-                  })),
+                  child: AppetizersScreen(),
+                );
+              })),
             ),
             CategoryCard(
               categoryName: 'Main dishes',
@@ -74,7 +77,14 @@ class MainMenuScreen extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.app_settings_alt_rounded),
                 title: const Text('Settings'),
-                onTap: () => {},
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                      return SettingsScreen();
+                    }),
+                  )
+                },
               ),
             ),
             Card(
@@ -85,7 +95,7 @@ class MainMenuScreen extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => LoginScreen()))
+                          builder: (BuildContext context) => WelcomeScreen()))
                 },
               ),
             ),

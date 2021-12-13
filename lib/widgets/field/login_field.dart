@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class LoginField extends StatelessWidget {
+
+  TextEditingController loginFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(5),
       child: TextFormField(
+        controller: loginFieldController,
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
         decoration: InputDecoration(
