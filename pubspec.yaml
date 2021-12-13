@@ -12,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^4.0.0
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
   flutter_bloc: ^7.0.0
@@ -20,6 +21,7 @@ dependencies:
   firebase_auth: ^3.2.0
   cloud_firestore: "^2.0.0"
   equatable: ^2.0.0
+  profanity_filter: ^2.0.0
 
 
 dev_dependencies:
