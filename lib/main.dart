@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:cook_pot/repository/test_repository.dart';
@@ -9,6 +11,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseApp app = await Firebase.initializeApp();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(Provider<TestUserRepository>(
     create: (_) =>
     const TestUserRepository(
@@ -68,5 +71,13 @@ class MyApp extends StatelessWidget {
         home: WelcomeScreen(),
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

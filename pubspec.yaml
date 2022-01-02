@@ -23,7 +23,6 @@ dependencies:
   equatable: ^2.0.0
   profanity_filter: ^2.0.0
 
-
 dev_dependencies:
   lint: ^1.5.3
   flutter_test:

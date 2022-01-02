@@ -24,7 +24,7 @@ class AppetizersBloc extends Bloc<AppetizersEvent, AppetizersState> {
   Stream<AppetizersState> _mapLoadAppetizersEventToState() async* {
     yield const AppetizersLoadingState();
     try{
-      final List<Recipe> appetizers = await _firestoreService.getRecipes();
+      final List<Recipe> appetizers = await _firestoreService.getAppetizers();
       yield AppetizersLoadedState(appetizers);
     }catch(e){
       yield AppetizersLoadErrorState(e.toString());
