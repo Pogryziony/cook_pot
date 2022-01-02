@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+
 class LoginForm extends StatefulWidget {
   const LoginForm();
 
@@ -71,6 +72,9 @@ class _LoginFormState extends State<LoginForm> {
                       controller: emailController,
                       validator: validateEmail,
                       cursorColor: Colors.white,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -100,6 +104,9 @@ class _LoginFormState extends State<LoginForm> {
                       validator: validatePassword,
                       obscureText: true,
                       cursorColor: Colors.white,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
