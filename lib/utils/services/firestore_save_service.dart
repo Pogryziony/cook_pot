@@ -7,11 +7,12 @@ class FirestoreSaveService {
   final String? image;
   final String? difficulty;
   final List? ingredients;
-  final int? preparationTime;
+  final double? preparationTime;
   final List? preparationSteps;
   final List? tags;
   final String? type;
   final double? ratings;
+  final String? portions;
 
   FirestoreSaveService(
       {this.name,
@@ -22,7 +23,9 @@ class FirestoreSaveService {
       this.preparationSteps,
       this.tags,
       this.type,
-      this.ratings});
+      this.ratings,
+      this.portions
+      });
 
   saveData(
       {name,
@@ -33,7 +36,9 @@ class FirestoreSaveService {
       preparationSteps,
       tags,
       type,
-      ratings}) {
+      ratings,
+      portions
+      }) {
     _databaseInstance
         .collection('recipes')
         .add({
@@ -41,11 +46,12 @@ class FirestoreSaveService {
           'image': this.image,
           'difficulty': this.difficulty,
           'ingredients': this.ingredients as List,
-          'preparationTime': this.preparationTime,
+          'preparationTime': this.preparationTime!.toStringAsFixed(0),
           'preparationSteps': this.preparationSteps as List,
           'tags': this.tags as List,
           'type': this.type,
           'ratings': this.ratings,
+          'portions': this.portions,
         })
         .then((value) => print('Recipe added'))
         .catchError((error) => print('Failed to add recipe'));

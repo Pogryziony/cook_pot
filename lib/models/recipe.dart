@@ -6,11 +6,12 @@ class Recipe extends Equatable {
   final String? image;
   final String? difficulty;
   final List? ingredients;
-  final int? preparationTime;
+  final String? preparationTime;
   final List? preparationSteps;
   final List? tags;
   final String? type;
   final double? ratings;
+  final String? portions;
 
   Recipe(
       {this.name,
@@ -21,7 +22,8 @@ class Recipe extends Equatable {
       this.preparationSteps,
       this.tags,
       this.type,
-      this.ratings});
+      this.ratings,
+      this.portions});
 
   factory Recipe.fromFirestore(DocumentSnapshot doc) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -31,11 +33,12 @@ class Recipe extends Equatable {
       image: data['image'] as String,
       difficulty: data['difficulty'] as String,
       ingredients: data['ingredients'] as List,
-      preparationTime: data['preparationTime'] as int,
+      preparationTime: data['preparationTime'],
       preparationSteps: data['preparationSteps'] as List,
       tags: data['tags'] as List,
       type: data['type'] as String,
       ratings: data['ratings'] as double,
+      portions: data['portions'] as String,
     );
   }
 
@@ -50,6 +53,7 @@ class Recipe extends Equatable {
       'tags': this.tags,
       'type': this.type,
       'ratings': this.ratings,
+      'portions': this.portions,
     };
   }
 
