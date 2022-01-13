@@ -1,5 +1,6 @@
 import 'package:cook_pot/models/recipe.dart';
 import 'package:cook_pot/modules/recipes/appetizers/appetizer_create_form.dart';
+import 'package:cook_pot/modules/recipes/appetizers/appetizer_detail_screen.dart';
 import 'package:cook_pot/widgets/card/recipe_card.dart';
 import 'package:cook_pot/widgets/filter_list.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +76,28 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
         itemCount: appetizers.length,
         itemBuilder: (BuildContext context, int index) {
           return RecipeCard(
-            recipeName: appetizers[index].name!.toString(),
+            recipeName: appetizers[index].name!,
             assetPath: appetizers[index].image!,
-            preparationTime: 'Preparation time: ' +
-                appetizers[index].preparationTime.toString(),
-            callbackFunction: () => {},
+            preparationTime: appetizers[index].preparationTime.toString(),
+            difficulty: appetizers[index].difficulty!,
+            portions: appetizers[index].portions!,
+            callbackFunction: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AppetizerDetailScreen(
+                    index: index,
+                    name: appetizers[index].name!.toString(),
+                    image: appetizers[index].image!,
+                    preparationTime: appetizers[index].preparationTime!.toString(),
+                    difficulty: appetizers[index].difficulty,
+                    ingredients: appetizers[index].ingredients,
+                    preparationSteps: appetizers[index].preparationSteps,
+                    portions: appetizers[index].portions,
+                  ),
+                ),
+              ),
+            },
           );
         });
   }
