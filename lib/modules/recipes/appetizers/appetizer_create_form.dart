@@ -186,7 +186,7 @@ class _AppetizerCreateFormState extends State<AppetizerCreateForm> {
                 onPressed: () {
                   FirestoreSaveService(
                     //mocked data
-                    name: 'Stuffed potatoes',
+                    name: 'Stuffed potatoesasdadaasdasasdadadadadadadadadasdsadsadada',
                     image: 'https://www.thespruceeats.com/thmb/dA8o8EZpjJyeocYZNpzfknoKh2s=/4351x3263/smart/filters:no_upscale()/baked-stuffed-potatoes-482217-hero-01-850f2d87fe80403f923e140dbf5f1bf3.jpg',
                     ingredients: ['Potatoes','Cream','Ham','Onion','Parsley','Egg'],
                     difficulty: _difficultyValue,
