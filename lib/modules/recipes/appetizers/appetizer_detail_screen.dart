@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -14,16 +15,16 @@ class AppetizerDetailScreen extends StatefulWidget {
   var preparationSteps;
   var portions;
 
-  AppetizerDetailScreen(
-      {this.index,
-      this.name,
-      this.image,
-      this.preparationTime,
-      this.difficulty,
-      this.ingredients,
-      this.preparationSteps,
-        this.portions,
-      });
+  AppetizerDetailScreen({
+    this.index,
+    this.name,
+    this.image,
+    this.preparationTime,
+    this.difficulty,
+    this.ingredients,
+    this.preparationSteps,
+    this.portions,
+  });
 
   @override
   _AppetizerDetailScreenState createState() => _AppetizerDetailScreenState();
@@ -41,11 +42,11 @@ class _AppetizerDetailScreenState extends State<AppetizerDetailScreen> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.white,
           ),
         ),
       ),
       body: Container(
+        color: Colors.lightGreen.shade100,
         child: Column(
           children: [
             SizedBox(
@@ -66,41 +67,42 @@ class _AppetizerDetailScreenState extends State<AppetizerDetailScreen> {
                 ),
               ),
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(children: [
-                  chooseDifficultyIcon(widget.difficulty),
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Text(widget.difficulty,
-                      style:
-                      TextStyle(fontSize: 24, fontStyle: FontStyle.italic)),
-
-                ],),
+                Row(
+                  children: [
+                    chooseDifficultyIcon(widget.difficulty),
+                    Padding(padding: EdgeInsets.only(left: 10)),
+                    Text(widget.difficulty,
+                        style: TextStyle(
+                            fontSize: 24, fontStyle: FontStyle.italic)),
+                  ],
+                ),
                 Padding(padding: EdgeInsets.only(left: 10)),
                 Row(
                   children: [
                     Icon(Icons.access_time),
                     Padding(padding: EdgeInsets.only(left: 10)),
-
-                    Text(widget.preparationTime+' min',
-                        style:
-                        TextStyle(fontSize: 24, fontStyle: FontStyle.italic)),
+                    Text(widget.preparationTime + ' min',
+                        style: TextStyle(
+                            fontSize: 24, fontStyle: FontStyle.italic)),
                   ],
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),
-
                 Row(
                   children: [
                     Icon(Icons.person),
                     Padding(padding: EdgeInsets.only(left: 10)),
-
                     Text(widget.portions,
-                        style:
-                        TextStyle(fontSize: 24, fontStyle: FontStyle.italic)),
+                        style: TextStyle(
+                            fontSize: 24, fontStyle: FontStyle.italic)),
                   ],
                 ),
               ],
             ),
+            Text('Ingredients:'),
+            getTextWidgets(widget.ingredients),
           ],
         ),
       ),
@@ -119,3 +121,39 @@ chooseDifficultyIcon(difficulty) {
   } else if (difficulty == 'Hard')
     return Icon(MaterialCommunityIcons.signal_cellular_3, size: 36);
 }
+
+Widget getTextWidgets(List<dynamic> strings) {
+  return new Column(children: strings.map((item) => new Text(item)).toList());
+}
+// Row(
+//   children: [
+//     Container(
+//       child: RatingBar.builder(
+//         initialRating: 3,
+//         minRating: 1,
+//         direction: Axis.horizontal,
+//         itemCount: 5,
+//         itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+//         itemSize: 25,
+//         itemBuilder: (context, _) => Icon(
+//           Icons.star,
+//           color: Colors.amber,
+//         ),
+//         onRatingUpdate: (rating) {
+//           print(rating);
+//         },
+//       ),
+//     ),
+//     Container(
+//       child: IconButton(
+//         onPressed: () => {
+//          //todo: state for checking favourite button
+//         },
+//         icon: Icon(
+//             Icons.favorite_border,
+//             color: Colors.red,
+//             ),
+//       )
+//     )
+//   ],
+// ),
