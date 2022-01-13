@@ -78,8 +78,9 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
           return RecipeCard(
             recipeName: appetizers[index].name!,
             assetPath: appetizers[index].image!,
-            preparationTime: 'Preparation time: ' +
-                appetizers[index].preparationTime!.toString(),
+            preparationTime: appetizers[index].preparationTime.toString(),
+            difficulty: appetizers[index].difficulty!,
+            portions: appetizers[index].portions!,
             callbackFunction: () => {
               Navigator.push(
                 context,
