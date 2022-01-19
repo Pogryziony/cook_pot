@@ -14,6 +14,7 @@ class AppetizerDetailScreen extends StatefulWidget {
   var ingredients;
   var preparationSteps;
   var portions;
+  var stepIndex;
 
   AppetizerDetailScreen({
     this.index,
@@ -24,6 +25,7 @@ class AppetizerDetailScreen extends StatefulWidget {
     this.ingredients,
     this.preparationSteps,
     this.portions,
+    this.stepIndex = 0,
   });
 
   @override
@@ -45,65 +47,69 @@ class _AppetizerDetailScreenState extends State<AppetizerDetailScreen> {
           ),
         ),
       ),
-      body: Container(
-        color: Colors.lightGreen.shade100,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 300,
-              width: MediaQuery.of(context).size.width,
-              child: Image(
-                image: NetworkImage(widget.image),
-                fit: BoxFit.fill,
-              ),
-            ),
-            Padding(padding: EdgeInsets.only(top: 10)),
-            Center(
-              child: Text(
-                widget.name,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.lightGreen.shade100,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 300,
+                width: MediaQuery.of(context).size.width,
+                child: Image(
+                  image: NetworkImage(widget.image),
+                  fit: BoxFit.fill,
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    chooseDifficultyIcon(widget.difficulty),
-                    Padding(padding: EdgeInsets.only(left: 10)),
-                    Text(widget.difficulty,
-                        style: TextStyle(
-                            fontSize: 24, fontStyle: FontStyle.italic)),
-                  ],
+              Padding(padding: EdgeInsets.only(top: 10)),
+              Center(
+                child: Text(
+                  widget.name,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Row(
-                  children: [
-                    Icon(Icons.access_time),
-                    Padding(padding: EdgeInsets.only(left: 10)),
-                    Text(widget.preparationTime + ' min',
-                        style: TextStyle(
-                            fontSize: 24, fontStyle: FontStyle.italic)),
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Row(
-                  children: [
-                    Icon(Icons.person),
-                    Padding(padding: EdgeInsets.only(left: 10)),
-                    Text(widget.portions,
-                        style: TextStyle(
-                            fontSize: 24, fontStyle: FontStyle.italic)),
-                  ],
-                ),
-              ],
-            ),
-            Text('Ingredients:'),
-            getTextWidgets(widget.ingredients),
-          ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      chooseDifficultyIcon(widget.difficulty),
+                      Padding(padding: EdgeInsets.only(left: 10)),
+                      Text(widget.difficulty,
+                          style: TextStyle(
+                              fontSize: 24, fontStyle: FontStyle.italic)),
+                    ],
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 10)),
+                  Row(
+                    children: [
+                      Icon(Icons.access_time),
+                      Padding(padding: EdgeInsets.only(left: 10)),
+                      Text(widget.preparationTime + ' min',
+                          style: TextStyle(
+                              fontSize: 24, fontStyle: FontStyle.italic)),
+                    ],
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 10)),
+                  Row(
+                    children: [
+                      Icon(Icons.person),
+                      Padding(padding: EdgeInsets.only(left: 10)),
+                      Text(widget.portions,
+                          style: TextStyle(
+                              fontSize: 24, fontStyle: FontStyle.italic)),
+                    ],
+                  ),
+                ],
+              ),
+              Text('Ingredients:'),
+              getTextWidgets(widget.ingredients),
+              Text('Preparation steps:'),
+              getTextWidgets(widget.preparationSteps),
+            ],
+          ),
         ),
       ),
     );
@@ -125,6 +131,11 @@ chooseDifficultyIcon(difficulty) {
 Widget getTextWidgets(List<dynamic> strings) {
   return new Column(children: strings.map((item) => new Text(item)).toList());
 }
+
+List<Text> returnList(List<dynamic> strings){
+    return strings.map((item) => new Text(item)).toList();
+}
+
 // Row(
 //   children: [
 //     Container(
