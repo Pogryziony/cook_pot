@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/core/first_steps/welcome_screen.dart';
+import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/repository/test_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,7 @@ void main() async {
   FirebaseApp app = await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   runApp(Provider<TestUserRepository>(
-    create: (_) =>
-    const TestUserRepository(
+    create: (_) => const TestUserRepository(
       fakeEmail: "pogryziony98@gmail.com",
       success: true,
     ),
@@ -59,10 +59,13 @@ class InitializationError extends StatelessWidget {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context,{bool listen = false}) {
+  Widget build(BuildContext context, {bool listen = false}) {
     final repository = context.select((TestUserRepository r) => r);
-    return BlocProvider(
-      create: (context) => AuthenticationBloc(repository),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthenticationBloc(repository)),
+        BlocProvider(create: (context) => RecipesBloc())
+      ],
       child: MaterialApp(
         title: 'Cook Pot',
         theme: ThemeData(
@@ -74,10 +77,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
