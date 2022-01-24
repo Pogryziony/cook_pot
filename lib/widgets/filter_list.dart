@@ -1,12 +1,25 @@
 import 'package:cook_pot/models/recipe.dart';
+import 'package:cook_pot/modules/recipes/appetizers/appetizer_detail_screen.dart';
+import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
+import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterList extends StatefulWidget {
+  FilterList({required this.onFiltered});
+
+  Function onFiltered;
+
   @override
   _FilterListState createState() => _FilterListState();
 }
 
 class _FilterListState extends State<FilterList> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final _formKey = GlobalKey<FormState>();
   RangeValues _currentRangeValues = const RangeValues(0, 360);
   bool isEasy = false;
@@ -20,7 +33,6 @@ class _FilterListState extends State<FilterList> {
   bool isVegetarian = false;
   bool hasMeat = false;
   String excludedIngredients = '';
-
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +159,11 @@ class _FilterListState extends State<FilterList> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  return widget.onFiltered(isEasy);
+                },
+                //TODO kategoria przekazywana jest z kontekstu, którego używamy na poprzednim ekranie. Zamykanie okna jest robione przez pop.
                 child: Text('Submit'),
               )
             ],
@@ -157,7 +173,6 @@ class _FilterListState extends State<FilterList> {
     );
   }
 }
-
 
 //
 // var recipes = <Recipe>[]; // somehow you would fetch the initial list of items
