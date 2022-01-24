@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-
 class LoginForm extends StatefulWidget {
   const LoginForm();
 
@@ -19,7 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void loginButtonPressed(BuildContext context,{bool listen = false}) {
+  void loginButtonPressed(BuildContext context, {bool listen = false}) {
     Provider.of<LoginBloc>(context, listen: false).add(LoginButtonPressed(
         email: emailController.text, password: passwordController.text));
   }
@@ -48,8 +47,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   @override
-  Widget build(BuildContext context,{bool listen = false}) {
-
+  Widget build(BuildContext context, {bool listen = false}) {
     return LayoutBuilder(builder: (builder, data) {
       var baseWidth = MediaQuery.of(context).size.width;
       if (data.maxWidth <= baseWidth) {
@@ -142,27 +140,19 @@ class _LoginFormState extends State<LoginForm> {
                 return const CircularProgressIndicator();
               }
               return ElevatedButton(
-                key:  Key('loginButton'),
+                key: Key('loginButton'),
                 onPressed: () {
-              //TODO: change navigator to validate
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (BuildContext context) {
-                  //     return LoginScreen();
-                  //   }),
-                  // )
-                  if(formKey.currentState!.validate()){
+                  if (formKey.currentState!.validate()) {
                     loginButtonPressed(context);
-                    Navigator.push(context, 
-                        MaterialPageRoute(builder: (BuildContext context){
-                            return MainMenuScreen();
-                        }),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return MainMenuScreen();
+                      }),
                     );
-                  }else{
-                    
-                  }
+                  } else {}
                 },
-                child: Text('login'),
+                child: Text('Login'),
               );
             })
           ],

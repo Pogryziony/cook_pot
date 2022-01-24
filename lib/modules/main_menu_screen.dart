@@ -1,9 +1,7 @@
-import 'package:cook_pot/core/auth/login/login_screen.dart';
-import 'package:cook_pot/core/first_steps/signup_screen.dart';
 import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:cook_pot/core/settings/settings_screen.dart';
-import 'file:///C:/Users/Pogry/AndroidStudioProjects/cook_pot/lib/modules/recipes/appetizers/appetizers_bloc.dart';
-import 'file:///C:/Users/Pogry/AndroidStudioProjects/cook_pot/lib/modules/recipes/appetizers/appetizers_screen.dart';
+import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
+import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,27 +22,52 @@ class MainMenuScreen extends StatelessWidget {
               assetPath: 'assets/images/appetizer.png',
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
-                return BlocProvider(
-                  create: (BuildContext context) =>
-                      AppetizersBloc()..add(LoadAppetizersEvent()),
-                  child: AppetizersScreen(),
+                return BlocProvider.value(
+                  value: BlocProvider.of<RecipesBloc>(context)
+                    ..add(LoadRecipesEvent())
+                    ..category = 'appetizer',
+                  child: RecipesScreen(),
                 );
               })),
             ),
             CategoryCard(
               categoryName: 'Main dishes',
               assetPath: 'assets/images/main_dish.png',
-              onPressed: () => {},
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return BlocProvider.value(
+                  value: BlocProvider.of<RecipesBloc>(context)
+                    ..add(LoadRecipesEvent())
+                    ..category = 'main_dish',
+                  child: RecipesScreen(),
+                );
+              })),
             ),
             CategoryCard(
               categoryName: 'Desserts',
               assetPath: 'assets/images/dessert.png',
-              onPressed: () => {},
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return BlocProvider.value(
+                  value: BlocProvider.of<RecipesBloc>(context)
+                    ..add(LoadRecipesEvent())
+                    ..category = 'dessert',
+                  child: RecipesScreen(),
+                );
+              })),
             ),
             CategoryCard(
               categoryName: 'Drinks',
               assetPath: 'assets/images/drink.png',
-              onPressed: () => {},
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return BlocProvider.value(
+                  value: BlocProvider.of<RecipesBloc>(context)
+                    ..add(LoadRecipesEvent())
+                    ..category = 'drink',
+                  child: RecipesScreen(),
+                );
+              })),
             ),
           ],
         ),

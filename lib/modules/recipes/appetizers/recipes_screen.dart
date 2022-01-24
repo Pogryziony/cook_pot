@@ -1,19 +1,25 @@
 import 'package:cook_pot/models/recipe.dart';
 import 'package:cook_pot/modules/recipes/appetizers/appetizer_create_form.dart';
 import 'package:cook_pot/modules/recipes/appetizers/appetizer_detail_screen.dart';
+import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/widgets/card/recipe_card.dart';
 import 'package:cook_pot/widgets/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'appetizers_bloc.dart';
 
-class AppetizersScreen extends StatefulWidget {
+class RecipesScreen extends StatefulWidget {
   @override
-  _AppetizersScreenState createState() => _AppetizersScreenState();
+  _RecipesScreenState createState() => _RecipesScreenState();
 }
 
-class _AppetizersScreenState extends State<AppetizersScreen> {
-  final _formKey = GlobalKey<FormState>();
+class _RecipesScreenState extends State<RecipesScreen> {
+  late List<Recipe> appetizers;
+
+  @override
+  void initState() {
+    String category = '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
             icon: const Icon(Icons.search),
             tooltip: 'Open search module',
             onPressed: () {
-              // handle the press
+              // TODO handle the press
             },
           ),
           IconButton(
@@ -36,24 +42,30 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return FilterList();
+                    return FilterList(
+                      onFiltered: (bool isEasy) => {
+                        BlocProvider.of<RecipesBloc>(context)
+                            .add(LoadFilteredRecipesEvent(isEasy, appetizers))//TODO appetizers zamienić na recipes - myląca nazwa dla listy przepisów.
+                      },
+                    );
                   });
             },
           ),
         ],
       ),
-      body: BlocBuilder<AppetizersBloc, AppetizersState>(
-        builder: (BuildContext context, AppetizersState state) {
-          if (state is AppetizersLoadingState) {
+      body: BlocBuilder<RecipesBloc, RecipesState>(
+        builder: (BuildContext context, RecipesState state) {
+          if (state is RecipesLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is AppetizersLoadErrorState) {
+          } else if (state is RecipesLoadErrorState) {
             return Center(
               child: Text(state.error),
             );
-          } else if (state is AppetizersLoadedState) {
-            return _appetizerList(state.appetizers);
+          } else if (state is RecipesLoadedState) {
+            appetizers = state.recipes;
+            return _recipesList(appetizers);
           }
           return Container();
         },
@@ -71,7 +83,7 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
     );
   }
 
-  Widget _appetizerList(List<Recipe> appetizers) {
+  Widget _recipesList(List<Recipe> appetizers) {
     return ListView.builder(
         itemCount: appetizers.length,
         itemBuilder: (BuildContext context, int index) {
@@ -85,11 +97,12 @@ class _AppetizersScreenState extends State<AppetizersScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AppetizerDetailScreen(
+                  builder: (context) => RecipeDetailScreen(
                     index: index,
                     name: appetizers[index].name!.toString(),
                     image: appetizers[index].image!,
-                    preparationTime: appetizers[index].preparationTime!.toString(),
+                    preparationTime:
+                        appetizers[index].preparationTime!.toString(),
                     difficulty: appetizers[index].difficulty,
                     ingredients: appetizers[index].ingredients,
                     preparationSteps: appetizers[index].preparationSteps,

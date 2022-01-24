@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
-class AppetizerDetailScreen extends StatefulWidget {
+class RecipeDetailScreen extends StatefulWidget {
   var index;
   var name;
   var image;
@@ -16,7 +16,7 @@ class AppetizerDetailScreen extends StatefulWidget {
   var portions;
   var stepIndex;
 
-  AppetizerDetailScreen({
+  RecipeDetailScreen({
     this.index,
     this.name,
     this.image,
@@ -29,10 +29,10 @@ class AppetizerDetailScreen extends StatefulWidget {
   });
 
   @override
-  _AppetizerDetailScreenState createState() => _AppetizerDetailScreenState();
+  _RecipeDetailScreenState createState() => _RecipeDetailScreenState();
 }
 
-class _AppetizerDetailScreenState extends State<AppetizerDetailScreen> {
+class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
