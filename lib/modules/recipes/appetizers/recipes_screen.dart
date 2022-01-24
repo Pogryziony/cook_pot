@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipesScreen extends StatefulWidget {
-
   @override
   _RecipesScreenState createState() => _RecipesScreenState();
 }
 
 class _RecipesScreenState extends State<RecipesScreen> {
+  late List<Recipe> appetizers;
 
   @override
   void initState() {
@@ -42,7 +42,12 @@ class _RecipesScreenState extends State<RecipesScreen> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return FilterList();
+                    return FilterList(
+                      onFiltered: (bool isEasy) => {
+                        BlocProvider.of<RecipesBloc>(context)
+                            .add(LoadFilteredRecipesEvent(isEasy, appetizers))//TODO appetizers zamienić na recipes - myląca nazwa dla listy przepisów.
+                      },
+                    );
                   });
             },
           ),
@@ -59,7 +64,8 @@ class _RecipesScreenState extends State<RecipesScreen> {
               child: Text(state.error),
             );
           } else if (state is RecipesLoadedState) {
-            return _recipesList(state.recipes);
+            appetizers = state.recipes;
+            return _recipesList(appetizers);
           }
           return Container();
         },
@@ -91,11 +97,12 @@ class _RecipesScreenState extends State<RecipesScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AppetizerDetailScreen(
+                  builder: (context) => RecipeDetailScreen(
                     index: index,
                     name: appetizers[index].name!.toString(),
                     image: appetizers[index].image!,
-                    preparationTime: appetizers[index].preparationTime!.toString(),
+                    preparationTime:
+                        appetizers[index].preparationTime!.toString(),
                     difficulty: appetizers[index].difficulty,
                     ingredients: appetizers[index].ingredients,
                     preparationSteps: appetizers[index].preparationSteps,
