@@ -26,6 +26,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       yield* _mapLoadRecipesEventToState();
     } else if (event is LoadFilteredRecipesEvent) {
       yield* _mapLoadFilteredRecipesEventToState(event);
+    } else if (event is AddRecipeEvent){
+      yield* _mapAddRecipeToState(event);
     }
   }
 
@@ -50,6 +52,13 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     }
     yield RecipesLoadedState(recipesList);
   }
+
+  Stream<RecipesState> _mapAddRecipeToState(
+      AddRecipeEvent event) async* {
+    _firestoreService.addNewRecipe(event.recipe);
+  }
+
+
 // yield const RecipesLoadingState();
 // try{
 //   final List<Recipe> recipes = await _firestoreService.getRecipesFromCategoryWithFilters('$currentCategory');
