@@ -42,8 +42,7 @@ class Recipe extends Equatable {
     );
   }
 
-  toJson() {
-    return {
+   Map<String,dynamic> toDatabaseJson() => {
       'name': this.name,
       'image': this.image,
       'difficulty': this.difficulty,
@@ -55,7 +54,6 @@ class Recipe extends Equatable {
       'ratings': this.ratings,
       'portions': this.portions,
     };
-  }
 
   @override
   List<Object?> get props => throw UnimplementedError();
