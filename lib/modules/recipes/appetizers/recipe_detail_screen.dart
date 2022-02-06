@@ -11,8 +11,8 @@ class RecipeDetailScreen extends StatefulWidget {
   final image;
   final preparationTime;
   final difficulty;
-  var ingredients;
-  var preparationSteps;
+  final ingredients;
+  final preparationSteps;
   final portions;
   final stepIndex;
 
