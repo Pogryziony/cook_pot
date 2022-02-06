@@ -1,4 +1,4 @@
-import 'package:cook_pot/modules/recipes/appetizers/appetizer_detail_screen.dart';
+import 'package:cook_pot/modules/recipes/appetizers/recipe_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
