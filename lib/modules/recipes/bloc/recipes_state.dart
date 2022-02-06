@@ -30,3 +30,8 @@ class RecipesLoadingState extends RecipesState{
   const RecipesLoadingState();
 
 }
+
+class AddRecipeState extends RecipesState{
+  const AddRecipeState();
+
+}

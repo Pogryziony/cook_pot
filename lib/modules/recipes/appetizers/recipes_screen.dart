@@ -1,9 +1,9 @@
 import 'package:cook_pot/models/recipe.dart';
-import 'package:cook_pot/modules/recipes/appetizers/appetizer_create_form.dart';
-import 'package:cook_pot/modules/recipes/appetizers/appetizer_detail_screen.dart';
+import 'package:cook_pot/modules/recipes/appetizers/recipe_detail_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/widgets/card/recipe_card.dart';
 import 'package:cook_pot/widgets/filter_list.dart';
+import 'package:cook_pot/widgets/recipe_create_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,11 +13,10 @@ class RecipesScreen extends StatefulWidget {
 }
 
 class _RecipesScreenState extends State<RecipesScreen> {
-  late List<Recipe> appetizers;
+  late List<Recipe> recipes;
 
   @override
   void initState() {
-    String category = '';
     super.initState();
   }
 
@@ -25,7 +24,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appetizer menu'),
+        title: getMenuName(),
         backgroundColor: Colors.lightGreen,
         actions: [
           IconButton(
@@ -43,9 +42,9 @@ class _RecipesScreenState extends State<RecipesScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return FilterList(
-                      onFiltered: (bool isEasy) => {
+                      onFiltered: (Map<String, bool> difficultyValues, Map<String, bool> portionValues,) => {
                         BlocProvider.of<RecipesBloc>(context)
-                            .add(LoadFilteredRecipesEvent(isEasy, appetizers))//TODO appetizers zamienić na recipes - myląca nazwa dla listy przepisów.
+                            .add(LoadFilteredRecipesEvent(difficultyValues, portionValues, recipes))
                       },
                     );
                   });
@@ -64,8 +63,8 @@ class _RecipesScreenState extends State<RecipesScreen> {
               child: Text(state.error),
             );
           } else if (state is RecipesLoadedState) {
-            appetizers = state.recipes;
-            return _recipesList(appetizers);
+            recipes = state.recipes;
+            return _recipesList(recipes);
           }
           return Container();
         },
@@ -75,7 +74,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return AppetizerCreateForm();
+                return RecipeCreateForm();
               });
         },
         child: Icon(Icons.add),
@@ -83,35 +82,50 @@ class _RecipesScreenState extends State<RecipesScreen> {
     );
   }
 
-  Widget _recipesList(List<Recipe> appetizers) {
+  Widget _recipesList(List<Recipe> recipe) {
     return ListView.builder(
-        itemCount: appetizers.length,
+        itemCount: recipe.length,
         itemBuilder: (BuildContext context, int index) {
           return RecipeCard(
-            recipeName: appetizers[index].name!,
-            assetPath: appetizers[index].image!,
-            preparationTime: appetizers[index].preparationTime.toString(),
-            difficulty: appetizers[index].difficulty!,
-            portions: appetizers[index].portions!,
+            recipeName: recipe[index].name!,
+            assetPath: recipe[index].image!,
+            preparationTime: recipe[index].preparationTime.toString(),
+            difficulty: recipe[index].difficulty!,
+            portions: recipe[index].portions!,
             callbackFunction: () => {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => RecipeDetailScreen(
                     index: index,
-                    name: appetizers[index].name!.toString(),
-                    image: appetizers[index].image!,
+                    name: recipe[index].name!.toString(),
+                    image: recipe[index].image!,
                     preparationTime:
-                        appetizers[index].preparationTime!.toString(),
-                    difficulty: appetizers[index].difficulty,
-                    ingredients: appetizers[index].ingredients,
-                    preparationSteps: appetizers[index].preparationSteps,
-                    portions: appetizers[index].portions,
+                        recipe[index].preparationTime!.toString(),
+                    difficulty: recipe[index].difficulty,
+                    ingredients: recipe[index].ingredients,
+                    preparationSteps: recipe[index].preparationSteps,
+                    portions: recipe[index].portions,
                   ),
                 ),
               ),
             },
           );
         });
+  }
+
+  Widget getMenuName() {
+    switch (BlocProvider.of<RecipesBloc>(context).category) {
+      case 'appetizer':
+        return Text('Appetizer menu');
+      case 'main_dish':
+        return Text('Main dish menu');
+      case 'drink':
+        return Text('Drink menu');
+      case 'dessert':
+        return Text('Dessert menu');
+      default:
+        return ErrorWidget(Text('Unable to get menu name'));
+    }
   }
 }

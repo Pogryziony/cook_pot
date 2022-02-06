@@ -5,9 +5,9 @@ class Recipe extends Equatable {
   final String? name;
   final String? image;
   final String? difficulty;
-  final List? ingredients;
+  final List ingredients;
   final String? preparationTime;
-  final List? preparationSteps;
+  final List preparationSteps;
   final List? tags;
   final String? type;
   final double? ratings;
@@ -17,9 +17,9 @@ class Recipe extends Equatable {
       {this.name,
       this.image,
       this.difficulty,
-      this.ingredients,
+      required this.ingredients,
       this.preparationTime,
-      this.preparationSteps,
+      required this.preparationSteps,
       this.tags,
       this.type,
       this.ratings,
@@ -34,28 +34,25 @@ class Recipe extends Equatable {
       difficulty: data['difficulty'] as String,
       ingredients: data['ingredients'] as List,
       preparationTime: data['preparationTime'],
-      preparationSteps: data['preparationSteps'] as List,
+      preparationSteps: data['preparationSteps'],
       tags: data['tags'] as List,
       type: data['type'] as String,
-      ratings: data['ratings'] as double,
       portions: data['portions'] as String,
     );
   }
 
-  toJson() {
-    return {
-      'name': this.name,
-      'image': this.image,
-      'difficulty': this.difficulty,
-      'ingredients': this.ingredients,
-      'preparationTime': this.preparationTime,
-      'preparationSteps': this.preparationSteps,
-      'tags': this.tags,
-      'type': this.type,
-      'ratings': this.ratings,
-      'portions': this.portions,
-    };
-  }
+  Map<String, dynamic> toDatabaseJson() => {
+        'name': this.name,
+        'image': this.image,
+        'difficulty': this.difficulty,
+        'ingredients': this.ingredients,
+        'preparationTime': this.preparationTime,
+        'preparationSteps': this.preparationSteps,
+        'tags': this.tags,
+        'type': this.type,
+        'ratings': this.ratings,
+        'portions': this.portions,
+      };
 
   @override
   List<Object?> get props => throw UnimplementedError();

@@ -9,12 +9,23 @@ abstract class RecipesEvent extends Equatable {
 
 class LoadRecipesEvent extends RecipesEvent {}
 
-class LoadFilteredRecipesEvent extends RecipesEvent {
-  const LoadFilteredRecipesEvent(this.isEasy, this.appetizers);
+class AddRecipeEvent extends RecipesEvent {
+  final Recipe recipe;
 
-  final bool isEasy;
-  final List<Recipe> appetizers;
+  AddRecipeEvent(this.recipe);
 
   @override
-  List<Object> get props => [isEasy, appetizers];
+  List<Object> get props => [recipe];
+}
+
+class LoadFilteredRecipesEvent extends RecipesEvent {
+  const LoadFilteredRecipesEvent(
+      this.difficultyValues, this.portionsValues, this.recipes);
+
+  final Map<String, bool> difficultyValues;
+  final Map<String, bool> portionsValues;
+  final List<Recipe> recipes;
+
+  @override
+  List<Object> get props => [difficultyValues, portionsValues, recipes];
 }

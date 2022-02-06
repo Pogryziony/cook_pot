@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
-  var index;
-  var name;
-  var image;
-  var preparationTime;
-  var difficulty;
-  var ingredients;
-  var preparationSteps;
-  var portions;
-  var stepIndex;
+  final index;
+  final name;
+  final image;
+  final preparationTime;
+  final difficulty;
+  final ingredients;
+  final preparationSteps;
+  final portions;
+  final stepIndex;
 
   RecipeDetailScreen({
     this.index,
@@ -105,9 +105,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 ],
               ),
               Text('Ingredients:'),
-              getTextWidgets(widget.ingredients),
+              Text(widget.ingredients.toString()),
               Text('Preparation steps:'),
-              getTextWidgets(widget.preparationSteps),
+              Text(widget.preparationSteps.toString()),
             ],
           ),
         ),
@@ -132,8 +132,8 @@ Widget getTextWidgets(List<dynamic> strings) {
   return new Column(children: strings.map((item) => new Text(item)).toList());
 }
 
-List<Text> returnList(List<dynamic> strings){
-    return strings.map((item) => new Text(item)).toList();
+List<Text> returnList(List<dynamic> strings) {
+  return strings.map((item) => new Text(item)).toList();
 }
 
 // Row(

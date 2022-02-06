@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cook_pot/models/recipe.dart';
 import 'package:cook_pot/utils/services/firestore_service.dart';
 import 'package:equatable/equatable.dart';
@@ -7,6 +8,8 @@ import 'package:equatable/equatable.dart';
 part 'recipes_event.dart';
 
 part 'recipes_state.dart';
+
+final FirebaseFirestore _databaseInstance = FirebaseFirestore.instance;
 
 class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   RecipesBloc()
@@ -26,6 +29,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       yield* _mapLoadRecipesEventToState();
     } else if (event is LoadFilteredRecipesEvent) {
       yield* _mapLoadFilteredRecipesEventToState(event);
+    } else if (event is AddRecipeEvent) {
+      yield* _mapAddRecipeToState(event);
     }
   }
 
@@ -43,13 +48,35 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
 
   Stream<RecipesState> _mapLoadFilteredRecipesEventToState(
       LoadFilteredRecipesEvent event) async* {
-    if (event.isEasy) {
-      recipesList = event.appetizers
-          .where((element) => element.difficulty == 'Easy')
+    if (getKeysWhenTrueFromMap(event.difficultyValues).isNotEmpty) {
+      recipesList = recipesList
+          .where((element) => getKeysWhenTrueFromMap(event.difficultyValues)
+              .toString()
+              .contains(element.difficulty.toString())).toList();
+    }
+      if(getKeysWhenTrueFromMap(event.portionsValues).isNotEmpty){
+          recipesList = recipesList.where((element) => getKeysWhenTrueFromMap(event.portionsValues)
+            .toString()
+            .contains(element.portions.toString()))
           .toList();
     }
     yield RecipesLoadedState(recipesList);
   }
+
+  Stream<RecipesState> _mapAddRecipeToState(AddRecipeEvent event) async* {
+    _firestoreService.addNewRecipe(event.recipe);
+  }
+
+  getKeysWhenTrueFromMap(Map<String, bool> map) {
+    List<String> keys = [];
+    map.forEach((key, value) {
+      if (value.toString() == 'true') {
+        keys.add(key);
+      }
+    });
+    return keys;
+  }
+
 // yield const RecipesLoadingState();
 // try{
 //   final List<Recipe> recipes = await _firestoreService.getRecipesFromCategoryWithFilters('$currentCategory');
