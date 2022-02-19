@@ -15,12 +15,14 @@ class _FilterListState extends State<FilterList> {
     super.initState();
   }
 
-  final Map<String, bool> difficultyValues = {
+  Map<String, bool> difficultyValues = {
     'Easy': false,
     'Medium': false,
     'Hard': false,
   };
-
+  late RangeValues _currentRangeValues = const RangeValues(0, 360);
+  late int minPrepValue = 0;
+  late int maxPrepValue = 360;
   final Map<String, bool> portionsValues = {
     '1': false,
     '2': false,
@@ -43,7 +45,17 @@ class _FilterListState extends State<FilterList> {
                 Icons.autorenew,
                 color: Colors.black,
               ),
-              onPressed: () => null)
+              onPressed: () => {
+                    setState(() {
+                      difficultyValues.forEach((key, value) {
+                        difficultyValues[key] = false;
+                      });
+                      _currentRangeValues = RangeValues(0, 360);
+                      portionsValues.forEach((key, value) {
+                        portionsValues[key] = false;
+                      });
+                    }),
+                  }),
         ],
       ),
       body: Column(
@@ -78,6 +90,20 @@ class _FilterListState extends State<FilterList> {
               fontSize: 24,
             ),
           ),
+          RangeSlider(
+              values: _currentRangeValues,
+              min: 0,
+              max: 360,
+              divisions: 24,
+              labels: RangeLabels(
+                _currentRangeValues.start.round().toString(),
+                _currentRangeValues.end.round().toString(),
+              ),
+              onChanged: (RangeValues values) {
+                setState(() {
+                  _currentRangeValues = values;
+                });
+              }),
           Text(
             'Portions',
             style: TextStyle(
@@ -104,15 +130,19 @@ class _FilterListState extends State<FilterList> {
           Center(
             child: ElevatedButton(
               onPressed: () {
+                minPrepValue = _currentRangeValues.start.round();
+                maxPrepValue = _currentRangeValues.end.round();
                 Navigator.of(context).pop();
                 return widget.onFiltered(
                   difficultyValues,
                   portionsValues,
+                  minPrepValue,
+                  maxPrepValue,
                 );
               },
               child: Text('Submit'),
             ),
-          )
+          ),
         ],
       ),
     );

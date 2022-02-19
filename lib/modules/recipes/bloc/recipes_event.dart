@@ -20,12 +20,14 @@ class AddRecipeEvent extends RecipesEvent {
 
 class LoadFilteredRecipesEvent extends RecipesEvent {
   const LoadFilteredRecipesEvent(
-      this.difficultyValues, this.portionsValues, this.recipes);
+      this.difficultyValues, this.portionsValues,this.minPrepTime,this.maxPrepTime, this.recipes);
 
   final Map<String, bool> difficultyValues;
   final Map<String, bool> portionsValues;
+  final int minPrepTime;
+  final int maxPrepTime;
   final List<Recipe> recipes;
 
   @override
-  List<Object> get props => [difficultyValues, portionsValues, recipes];
+  List<Object> get props => [difficultyValues, portionsValues, minPrepTime, maxPrepTime ,recipes];
 }

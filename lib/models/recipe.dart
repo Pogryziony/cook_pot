@@ -6,7 +6,7 @@ class Recipe extends Equatable {
   final String? image;
   final String? difficulty;
   final List ingredients;
-  final String? preparationTime;
+  final double? preparationTime;
   final List preparationSteps;
   final List? tags;
   final String? type;
