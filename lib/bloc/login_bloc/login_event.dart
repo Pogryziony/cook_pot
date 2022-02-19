@@ -14,9 +14,3 @@ class LoginButtonPressed extends LoginEvent {
   const LoginButtonPressed({required String email, required String password})
       : super(email, password);
 }
-
-class RegisterButtonPressed extends LoginEvent {
-  const RegisterButtonPressed(
-      {required String username, required String password})
-      : super(username, password);
-}

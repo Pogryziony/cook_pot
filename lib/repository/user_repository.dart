@@ -11,7 +11,7 @@ abstract class UserRepository {
   Future<bool> authenticate(String email, String password);
 
   /// Register with username and password
-  Future<bool> register(String email, String password);
+  Future<void> register(String email, String password);
 
   /// Logout
   Future<void> logOut();

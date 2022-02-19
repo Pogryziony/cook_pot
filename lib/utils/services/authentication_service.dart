@@ -24,10 +24,23 @@ class AuthenticationService extends UserRepository {
   Future<void> logOut() => FirebaseAuth.instance.signOut();
 
   @override
-  Future<bool> register(String email, String password) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<void> register(String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (error.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (error) {
+    }
   }
+
+
 
   @override
   String? get signedEmail {

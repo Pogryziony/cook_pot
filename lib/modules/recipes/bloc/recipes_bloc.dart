@@ -52,14 +52,24 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       recipesList = recipesList
           .where((element) => getKeysWhenTrueFromMap(event.difficultyValues)
               .toString()
-              .contains(element.difficulty.toString())).toList();
-    }
-      if(getKeysWhenTrueFromMap(event.portionsValues).isNotEmpty){
-          recipesList = recipesList.where((element) => getKeysWhenTrueFromMap(event.portionsValues)
-            .toString()
-            .contains(element.portions.toString()))
+              .contains(element.difficulty.toString()))
           .toList();
     }
+    if (getKeysWhenTrueFromMap(event.portionsValues).isNotEmpty) {
+      recipesList = recipesList
+          .where((element) => getKeysWhenTrueFromMap(event.portionsValues)
+              .toString()
+              .contains(element.portions.toString()))
+          .toList();
+    }
+    if (event.minPrepTime >= 0 && event.maxPrepTime <= 360) {
+      recipesList = recipesList
+          .where((element) =>
+              element.preparationTime! >= event.minPrepTime &&
+              element.preparationTime! <= event.maxPrepTime)
+          .toList();
+    }
+
     yield RecipesLoadedState(recipesList);
   }
 

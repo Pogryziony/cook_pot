@@ -42,9 +42,9 @@ class _RecipesScreenState extends State<RecipesScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return FilterList(
-                      onFiltered: (Map<String, bool> difficultyValues, Map<String, bool> portionValues,) => {
+                      onFiltered: (Map<String, bool> difficultyValues, Map<String, bool> portionValues,int minPrepTime,int maxPrepTime,) => {
                         BlocProvider.of<RecipesBloc>(context)
-                            .add(LoadFilteredRecipesEvent(difficultyValues, portionValues, recipes))
+                            .add(LoadFilteredRecipesEvent(difficultyValues, portionValues, minPrepTime, maxPrepTime, recipes))
                       },
                     );
                   });
@@ -89,7 +89,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
           return RecipeCard(
             recipeName: recipe[index].name!,
             assetPath: recipe[index].image!,
-            preparationTime: recipe[index].preparationTime.toString(),
+            preparationTime: recipe[index].preparationTime!.toStringAsFixed(0),
             difficulty: recipe[index].difficulty!,
             portions: recipe[index].portions!,
             callbackFunction: () => {

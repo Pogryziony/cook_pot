@@ -1,8 +1,4 @@
-import 'package:cook_pot/widgets/button/medium_button.dart';
-import 'package:cook_pot/widgets/field/confirm_password_field.dart';
-import 'package:cook_pot/widgets/field/email_field.dart';
-import 'package:cook_pot/widgets/field/password_field.dart';
-import 'package:cook_pot/widgets/field/username_field.dart';
+import 'package:cook_pot/widgets/field/registration_form.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationFormScreen extends StatefulWidget {
@@ -15,8 +11,7 @@ class _RegistrationFormScreenState extends State<RegistrationFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Container(
+      body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/background/background.png'),
@@ -24,30 +19,22 @@ class _RegistrationFormScreenState extends State<RegistrationFormScreen> {
             ),
           ),
           child: Container(
-            margin: const EdgeInsets.only(top: 90),
-            padding: const EdgeInsets.all(45.0),
+            margin: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.all(35.0),
             child: Column(
               children: <Widget>[
-                SizedBox(
+                Container(
                   child: Image.asset(
                     'assets/images/logo/cook_pot_logo_150px_transparent.png',
                     fit: BoxFit.fitHeight,
-                    height: 180, // set your height
+                    height: 140,
                   ),
                 ),
-                UsernameField(),
-                EmailField(),
-                PasswordField(),
-                ConfirmPasswordField(),
-                MediumButton(
-                  onPressed: () => {},
-                  text: 'Register',
-                ),
+                RegistrationForm(),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }
