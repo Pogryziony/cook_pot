@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/bloc/registration/registration_bloc.dart';
+import 'package:cook_pot/core/auth/register/registration_form_screen.dart';
 import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:cook_pot/modules/main_menu_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
-import 'package:cook_pot/repository/test_repository.dart';
-import 'package:cook_pot/repository/user_repository.dart';
 import 'package:cook_pot/utils/services/authentication_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +68,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RecipesBloc()),
         BlocProvider(create: (context) => RegistrationBloc(userRepository: repository, authenticationService: AuthenticationService())),
       ],
+
       child: MaterialApp(
         title: 'Cook Pot',
+        routes: <String, WidgetBuilder>{
+          WelcomeScreen.routeName: (BuildContext context) =>
+              WelcomeScreen(),
+          MainMenuScreen.routeName: (BuildContext context) => MainMenuScreen(),
+          RegistrationFormScreen.routeName: (BuildContext context) =>
+              RegistrationFormScreen(),
+        },
+        initialRoute: '/',
         theme: ThemeData(
           primarySwatch: Colors.lightGreen,
         ),
-        home: WelcomeScreen(),
       ),
     );
   }
