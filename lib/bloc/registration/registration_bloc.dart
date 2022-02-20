@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cook_pot/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:cook_pot/repository/user_repository.dart';
 import 'package:cook_pot/utils/services/authentication_service.dart';
 import 'package:equatable/equatable.dart';
@@ -32,8 +31,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       RegistrationEvent event) async* {
     yield RegistrationLoading();
     try {
-      await authenticationService.register(event.email, event.password);
-      print('Initial');
+      await userRepository.register(event.email, event.password);
     } on FirebaseException {
       yield RegistrationFailure();
     } catch (e) {

@@ -3,17 +3,20 @@ import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/bloc/login_bloc.dart';
 import 'package:cook_pot/core/auth/register/registration_form_screen.dart';
 import 'package:cook_pot/repository/test_repository.dart';
+import 'package:cook_pot/utils/services/authentication_service.dart';
 import 'package:cook_pot/widgets/field/registration_form.dart';
 import 'package:cook_pot/widgets/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static var routeName = '/';
+
   const WelcomeScreen();
 
   @override
   Widget build(BuildContext context) {
-    final userRepository = context.select((TestUserRepository u) => u);
+    final userRepository = context.select((AuthenticationService u) => u);
     final authenticationBloc = context.watch<AuthenticationBloc>();
 
     return Scaffold(
@@ -44,13 +47,14 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   LoginForm(),
-                  ElevatedButton(onPressed: () =>{
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return RegistrationFormScreen();
-                        }),
-                      )}, child: Text('Register'))
+                  ElevatedButton(
+                      onPressed: () => {
+                            Navigator.pushNamed(
+                              context,
+                              '/registrationForm',
+                            ),
+                          },
+                      child: Text('Register'))
                 ],
               ),
             ),

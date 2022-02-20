@@ -1,5 +1,4 @@
 import 'package:cook_pot/bloc/login_bloc.dart';
-import 'package:cook_pot/modules/main_menu_screen.dart';
 import 'package:cook_pot/widgets/separator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,9 +119,10 @@ class _LoginFormState extends State<LoginForm> {
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2)),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                            borderSide: const BorderSide(
-                                color: Colors.white, width: 2)),
+                          borderRadius: BorderRadius.circular(32),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 2),
+                        ),
                       ),
                     ),
                   ),
@@ -130,31 +130,42 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             const Separator(25),
-            BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
-              if (state is LoginFailure) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Login failed')));
-              }
-            }, builder: (context, state) {
-              if (state is LoginLoading) {
-                return const CircularProgressIndicator();
-              }
-              return ElevatedButton(
-                key: Key('loginButton'),
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    loginButtonPressed(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return MainMenuScreen();
-                      }),
+            BlocConsumer<LoginBloc, LoginState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is LoginPassed) {
+                    WidgetsBinding.instance?.addPostFrameCallback(
+                      (_) {
+                        Navigator.pushNamed(context, '/mainMenu');
+                      },
                     );
-                  } else {}
-                },
-                child: Text('Login'),
-              );
-            })
+                  }
+                  if (state is LoginLoading) {
+                    return const CircularProgressIndicator();
+                  }
+                  if (state is LoginFailure) {
+                    WidgetsBinding.instance?.addPostFrameCallback(
+                      (_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Login Failed! You have provided wrong password'),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return ElevatedButton(
+                    onPressed: () => {
+                      Future.delayed(Duration.zero, () {
+                        if (formKey.currentState!.validate()) {
+                          loginButtonPressed(context);
+                        }
+                      })
+                    },
+                    child: Text('Login'),
+                  );
+                })
           ],
         ),
       );
