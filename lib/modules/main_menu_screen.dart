@@ -1,12 +1,19 @@
-import 'package:cook_pot/core/first_steps/welcome_screen.dart';
+import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/core/settings/settings_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class MainMenuScreen extends StatelessWidget {
+  static var routeName = '/mainMenu';
+
+  void logoutButtonPressed(BuildContext context, {bool listen = true}) {
+    Provider.of<AuthenticationBloc>(context, listen: false).add(LoggedOut());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,18 +117,23 @@ class MainMenuScreen extends StatelessWidget {
                 },
               ),
             ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () => {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => WelcomeScreen()))
-                },
-              ),
-            ),
+            BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is AuthenticationRevoked) {
+                    Future.delayed(Duration.zero, () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (_) => false);
+                    });
+                  }
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(Icons.logout),
+                      title: const Text('Logout'),
+                      onTap: () => {logoutButtonPressed(context)},
+                    ),
+                  );
+                })
           ],
         ),
       ),
