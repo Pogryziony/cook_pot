@@ -36,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       
       if (success) {
         authenticationBloc.add(const LoggedIn());
-        yield LoginInitial();
+        yield LoginPassed();
       }  else{
         yield LoginFailure();
       }

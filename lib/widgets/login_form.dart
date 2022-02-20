@@ -1,4 +1,6 @@
+import 'package:cook_pot/bloc/authentication_bloc.dart';
 import 'package:cook_pot/bloc/login_bloc.dart';
+import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:cook_pot/modules/main_menu_screen.dart';
 import 'package:cook_pot/widgets/separator.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +138,15 @@ class _LoginFormState extends State<LoginForm> {
                     .showSnackBar(SnackBar(content: Text('Login failed')));
               }
             }, builder: (context, state) {
-              if (state is LoginLoading) {
+              if (state is LoginPassed) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return MainMenuScreen();
+                  }),
+                );
+              }
+              if(state is LoginLoading){
                 return const CircularProgressIndicator();
               }
               return ElevatedButton(
@@ -144,13 +154,7 @@ class _LoginFormState extends State<LoginForm> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     loginButtonPressed(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return MainMenuScreen();
-                      }),
-                    );
-                  } else {}
+                  }
                 },
                 child: Text('Login'),
               );

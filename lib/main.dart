@@ -17,10 +17,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseApp app = await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
-  runApp(Provider<TestUserRepository>(
-    create: (_) => const TestUserRepository(
-      fakeEmail: "pogryziony98@gmail.com",
-      success: true,
+  runApp(Provider<AuthenticationService>(
+    create: (_) =>  AuthenticationService(
     ),
     child: MyApp(),
   ));
@@ -64,7 +62,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, {bool listen = false}) {
-    final repository = context.select((TestUserRepository r) => r);
+    final repository = context.select((AuthenticationService r) => r);
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthenticationBloc(repository)),
