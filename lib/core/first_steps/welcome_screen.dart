@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static var routeName = '/';
+
   const WelcomeScreen();
 
   @override
@@ -45,13 +47,14 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   LoginForm(),
-                  ElevatedButton(onPressed: () =>{
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return RegistrationFormScreen();
-                        }),
-                      )}, child: Text('Register'))
+                  ElevatedButton(
+                      onPressed: () => {
+                            Navigator.pushNamed(
+                              context,
+                              '/registrationForm',
+                            ),
+                          },
+                      child: Text('Register'))
                 ],
               ),
             ),
