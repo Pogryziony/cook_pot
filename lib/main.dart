@@ -5,8 +5,10 @@ import 'package:cook_pot/bloc/registration/registration_bloc.dart';
 import 'package:cook_pot/core/auth/register/registration_form_screen.dart';
 import 'package:cook_pot/core/first_steps/welcome_screen.dart';
 import 'package:cook_pot/modules/main_menu_screen.dart';
+import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/utils/services/authentication_service.dart';
+import 'package:cook_pot/widgets/recipe_create_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +19,7 @@ void main() async {
   FirebaseApp app = await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   runApp(Provider<AuthenticationService>(
-    create: (_) =>  AuthenticationService(
-    ),
+    create: (_) => AuthenticationService(),
     child: MyApp(),
   ));
 }
@@ -66,17 +67,21 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthenticationBloc(repository)),
         BlocProvider(create: (context) => RecipesBloc()),
-        BlocProvider(create: (context) => RegistrationBloc(userRepository: repository, authenticationService: AuthenticationService())),
+        BlocProvider(
+            create: (context) => RegistrationBloc(
+                userRepository: repository,
+                authenticationService: AuthenticationService())),
       ],
-
       child: MaterialApp(
         title: 'Cook Pot',
         routes: <String, WidgetBuilder>{
-          WelcomeScreen.routeName: (BuildContext context) =>
-              WelcomeScreen(),
+          WelcomeScreen.routeName: (BuildContext context) => WelcomeScreen(),
           MainMenuScreen.routeName: (BuildContext context) => MainMenuScreen(),
           RegistrationFormScreen.routeName: (BuildContext context) =>
               RegistrationFormScreen(),
+          RecipeCreateForm.routeName: (BuildContext context) =>
+              RecipeCreateForm(),
+          RecipesScreen.routeName: (BuildContext context) => RecipesScreen(),
         },
         initialRoute: '/',
         theme: ThemeData(

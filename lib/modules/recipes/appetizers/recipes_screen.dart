@@ -5,9 +5,12 @@ import 'package:cook_pot/widgets/card/recipe_card.dart';
 import 'package:cook_pot/widgets/filter_list.dart';
 import 'package:cook_pot/widgets/recipe_create_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipesScreen extends StatefulWidget {
+  static var routeName = '/recipeScreen';
+
   @override
   _RecipesScreenState createState() => _RecipesScreenState();
 }
@@ -26,6 +29,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
       appBar: AppBar(
         title: getMenuName(),
         backgroundColor: Colors.lightGreen,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context)
+              .pushNamedAndRemoveUntil('/mainMenu', (_) => false),
+          icon: Icon(Icons.arrow_back),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -42,9 +50,20 @@ class _RecipesScreenState extends State<RecipesScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return FilterList(
-                      onFiltered: (Map<String, bool> difficultyValues, Map<String, bool> portionValues,int minPrepTime,int maxPrepTime,) => {
-                        BlocProvider.of<RecipesBloc>(context)
-                            .add(LoadFilteredRecipesEvent(difficultyValues, portionValues, minPrepTime, maxPrepTime, recipes))
+                      onFiltered: (
+                        Map<String, bool> difficultyValues,
+                        Map<String, bool> portionValues,
+                        int minPrepTime,
+                        int maxPrepTime,
+                      ) =>
+                          {
+                        BlocProvider.of<RecipesBloc>(context).add(
+                            LoadFilteredRecipesEvent(
+                                difficultyValues,
+                                portionValues,
+                                minPrepTime,
+                                maxPrepTime,
+                                recipes))
                       },
                     );
                   });
@@ -70,13 +89,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return RecipeCreateForm();
-              });
-        },
+        onPressed: () => redirectToCreateForm(),
         child: Icon(Icons.add),
       ),
     );
@@ -100,8 +113,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                     index: index,
                     name: recipe[index].name!.toString(),
                     image: recipe[index].image!,
-                    preparationTime:
-                        recipe[index].preparationTime!.toString(),
+                    preparationTime: recipe[index].preparationTime!.toString(),
                     difficulty: recipe[index].difficulty,
                     ingredients: recipe[index].ingredients,
                     preparationSteps: recipe[index].preparationSteps,
@@ -127,5 +139,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
       default:
         return ErrorWidget(Text('Unable to get menu name'));
     }
+  }
+
+  void redirectToCreateForm() {
+    SchedulerBinding.instance?.addPostFrameCallback((_) => {
+          Navigator.pushReplacementNamed(context, '/recipeCreateForm'),
+        });
   }
 }

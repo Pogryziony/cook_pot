@@ -4,15 +4,12 @@ import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class MainMenuScreen extends StatelessWidget {
   static var routeName = '/mainMenu';
-
-  void logoutButtonPressed(BuildContext context, {bool listen = true}) {
-    Provider.of<AuthenticationBloc>(context, listen: false).add(LoggedOut());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,57 +22,21 @@ class MainMenuScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             CategoryCard(
-              categoryName: 'Appetizers',
-              assetPath: 'assets/images/appetizer.png',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<RecipesBloc>(context)
-                    ..add(LoadRecipesEvent())
-                    ..category = 'appetizer',
-                  child: RecipesScreen(),
-                );
-              })),
-            ),
+                categoryName: 'Appetizers',
+                assetPath: 'assets/images/appetizer.png',
+                onPressed: () => redirectToCategory(context, 'appetizer')),
             CategoryCard(
-              categoryName: 'Main dishes',
-              assetPath: 'assets/images/main_dish.png',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<RecipesBloc>(context)
-                    ..add(LoadRecipesEvent())
-                    ..category = 'main_dish',
-                  child: RecipesScreen(),
-                );
-              })),
-            ),
+                categoryName: 'Main dishes',
+                assetPath: 'assets/images/main_dish.png',
+                onPressed: () => redirectToCategory(context, 'main_dish')),
             CategoryCard(
-              categoryName: 'Desserts',
-              assetPath: 'assets/images/dessert.png',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<RecipesBloc>(context)
-                    ..add(LoadRecipesEvent())
-                    ..category = 'dessert',
-                  child: RecipesScreen(),
-                );
-              })),
-            ),
+                categoryName: 'Desserts',
+                assetPath: 'assets/images/dessert.png',
+                onPressed: () => redirectToCategory(context, 'dessert')),
             CategoryCard(
-              categoryName: 'Drinks',
-              assetPath: 'assets/images/drink.png',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<RecipesBloc>(context)
-                    ..add(LoadRecipesEvent())
-                    ..category = 'drink',
-                  child: RecipesScreen(),
-                );
-              })),
-            ),
+                categoryName: 'Drinks',
+                assetPath: 'assets/images/drink.png',
+                onPressed: () => redirectToCategory(context, 'drink')),
           ],
         ),
       ),
@@ -130,7 +91,9 @@ class MainMenuScreen extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.logout),
                       title: const Text('Logout'),
-                      onTap: () => {logoutButtonPressed(context)},
+                      onTap: () => {
+                        logoutButtonPressed(context),
+                      },
                     ),
                   );
                 })
@@ -138,5 +101,37 @@ class MainMenuScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void logoutButtonPressed(BuildContext context, {bool listen = true}) {
+    Provider.of<AuthenticationBloc>(context, listen: false).add(LoggedOut());
+  }
+
+  void redirectToCategory(BuildContext context, String categoryName) {
+    Future.delayed(Duration.zero, () {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/recipeScreen',
+        (_) => false,
+        arguments: BlocProvider.value(
+          value: BlocProvider.of<RecipesBloc>(context)
+            ..add(LoadRecipesEvent())
+            ..category = categoryName,
+          child: RecipesScreen(),
+        ),
+      );
+    });
+
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (BuildContext context) {
+    //     return BlocProvider.value(
+    //       value: BlocProvider.of<RecipesBloc>(context)
+    //         ..add(LoadRecipesEvent())
+    //         ..category = categoryName,
+    //       child: RecipesScreen(),
+    //     );
+    //   }),
+    // );
   }
 }
