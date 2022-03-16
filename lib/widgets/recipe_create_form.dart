@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:cook_pot/models/recipe.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/utils/helpers/validator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipeCreateForm extends StatefulWidget {
+  static var routeName = '/recipeCreateForm';
+
   @override
   _RecipeCreateFormState createState() => _RecipeCreateFormState();
 }
@@ -32,9 +31,11 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
     super.initState();
     _ingredientsQuantity = 1;
     _preparationStepsQuantity = 1;
-    _ingredientsValues = [];
-    _preparationStepsValues = [];
     _preparationTime = 0;
+    _recipeNameController.text = '';
+    _imageUrl.text = '';
+    _ingredientsValues = [];
+    _preparationStepsValues  = [];
   }
 
   @override
@@ -44,7 +45,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).popAndPushNamed('/recipeScreen');
           },
           icon: Icon(
             Icons.arrow_back,
@@ -53,6 +54,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
         ),
       ),
       body: Scrollbar(
+        key: formKey,
         thickness: 10,
         hoverThickness: 2,
         child: SingleChildScrollView(
@@ -67,7 +69,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
                   'Recipe name',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                TextFormField(
+                TextField(
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -81,7 +83,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
                   'Image',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                TextFormField(
+                TextField(
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -269,25 +271,9 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<RecipesBloc>(context).add(
-                      AddRecipeEvent(
-                        Recipe(
-                          name: _recipeNameController.text,
-                          image:
-                              'https://www.thespruceeats.com/thmb/dA8o8EZpjJyeocYZNpzfknoKh2s=/4351x3263/smart/filters:no_upscale()/baked-stuffed-potatoes-482217-hero-01-850f2d87fe80403f923e140dbf5f1bf3.jpg',
-                          ingredients: _ingredientsValues,
-                          difficulty: _difficultyValue,
-                          preparationTime: _preparationTime,
-                          preparationSteps: _preparationStepsValues,
-                          type: BlocProvider.of<RecipesBloc>(context)
-                              .category
-                              .toString(),
-                          portions: _portions,
-                        ),
-                      ),
-                    );
-                    Navigator.of(context).pop();
+                  onPressed: () => {
+                    onButtonPressed(),
+                    Navigator.of(context).pushReplacementNamed('/recipeScreen'),
                   },
                   child: Text('Submit'),
                 ),
@@ -306,7 +292,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
           Padding(padding: EdgeInsets.only(left: 10)),
           SizedBox(
             width: 225,
-            child: TextFormField(
+            child: TextField(
               maxLength: 35,
               onChanged: (val) {
                 _onIngredientUpdate(key, val);
@@ -322,9 +308,8 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
           ),
           SizedBox(
             width: 55,
-            child: TextFormField(
+            child: TextField(
               maxLength: 7,
-              initialValue: '0',
               onChanged: (val) {
                 _onIngredientUpdate(key, val);
               },
@@ -384,7 +369,7 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
         ),
         SizedBox(width: 30),
         Expanded(
-          child: TextFormField(
+          child: TextField(
             onChanged: (val) {
               _onPreparationUpdate(key, val);
             },
@@ -411,5 +396,23 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
     }
     Map<String, dynamic> json = {'id': key, 'value': val};
     _preparationStepsValues.add(json);
+  }
+
+  onButtonPressed() {
+    BlocProvider.of<RecipesBloc>(context).add(
+      AddRecipeEvent(
+        Recipe(
+          name: _recipeNameController.text,
+          image:
+              'https://www.thespruceeats.com/thmb/dA8o8EZpjJyeocYZNpzfknoKh2s=/4351x3263/smart/filters:no_upscale()/baked-stuffed-potatoes-482217-hero-01-850f2d87fe80403f923e140dbf5f1bf3.jpg',
+          ingredients: _ingredientsValues,
+          difficulty: _difficultyValue,
+          preparationTime: _preparationTime,
+          preparationSteps: _preparationStepsValues,
+          type: BlocProvider.of<RecipesBloc>(context).category.toString(),
+          portions: _portions,
+        ),
+      ),
+    );
   }
 }
