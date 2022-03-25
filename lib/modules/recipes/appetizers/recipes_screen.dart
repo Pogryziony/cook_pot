@@ -3,7 +3,6 @@ import 'package:cook_pot/modules/recipes/appetizers/recipe_detail_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/widgets/card/recipe_card.dart';
 import 'package:cook_pot/widgets/filter_list.dart';
-import 'package:cook_pot/widgets/recipe_create_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,20 +99,20 @@ class _RecipesScreenState extends State<RecipesScreen> {
         itemCount: recipe.length,
         itemBuilder: (BuildContext context, int index) {
           return RecipeCard(
-            recipeName: recipe[index].name!,
-            assetPath: recipe[index].image!,
-            preparationTime: recipe[index].preparationTime!.toStringAsFixed(0),
-            difficulty: recipe[index].difficulty!,
-            portions: recipe[index].portions!,
+            recipeName: recipe[index].name,
+            assetPath: recipe[index].image,
+            preparationTime: recipe[index].preparationTime.toStringAsFixed(0),
+            difficulty: recipe[index].difficulty,
+            portions: recipe[index].portions,
             callbackFunction: () => {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => RecipeDetailScreen(
                     index: index,
-                    name: recipe[index].name!.toString(),
-                    image: recipe[index].image!,
-                    preparationTime: recipe[index].preparationTime!.toString(),
+                    name: recipe[index].name.toString(),
+                    image: recipe[index].image,
+                    preparationTime: recipe[index].preparationTime.toString(),
                     difficulty: recipe[index].difficulty,
                     ingredients: recipe[index].ingredients,
                     preparationSteps: recipe[index].preparationSteps,
