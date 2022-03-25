@@ -65,8 +65,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     if (event.minPrepTime >= 0 && event.maxPrepTime <= 360) {
       recipesList = recipesList
           .where((element) =>
-              element.preparationTime! >= event.minPrepTime &&
-              element.preparationTime! <= event.maxPrepTime)
+              element.preparationTime >= event.minPrepTime &&
+              element.preparationTime <= event.maxPrepTime)
           .toList();
     }
 
@@ -86,12 +86,4 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     });
     return keys;
   }
-
-// yield const RecipesLoadingState();
-// try{
-//   final List<Recipe> recipes = await _firestoreService.getRecipesFromCategoryWithFilters('$currentCategory');
-//   yield RecipesLoadedState(recipes);
-// }catch(e){
-//   yield RecipesLoadErrorState(e.toString());
-// }
 }

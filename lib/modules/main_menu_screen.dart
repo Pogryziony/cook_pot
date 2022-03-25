@@ -4,7 +4,6 @@ import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/widgets/card/category_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -121,17 +120,5 @@ class MainMenuScreen extends StatelessWidget {
         ),
       );
     });
-
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (BuildContext context) {
-    //     return BlocProvider.value(
-    //       value: BlocProvider.of<RecipesBloc>(context)
-    //         ..add(LoadRecipesEvent())
-    //         ..category = categoryName,
-    //       child: RecipesScreen(),
-    //     );
-    //   }),
-    // );
   }
 }

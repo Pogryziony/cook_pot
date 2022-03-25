@@ -16,6 +16,13 @@ class Validator{
     return regExp.hasMatch(email);
   }
 
+  String? isNotEmpty(String? value) {
+  if (value == null || value.isEmpty) {
+  return 'Please enter some text';
+  }
+  return null;
+  }
+
   bool validateTextField(String string){
     if(filter.hasProfanity(string)){
       return false;

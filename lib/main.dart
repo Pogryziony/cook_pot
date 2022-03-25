@@ -8,7 +8,7 @@ import 'package:cook_pot/modules/main_menu_screen.dart';
 import 'package:cook_pot/modules/recipes/appetizers/recipes_screen.dart';
 import 'package:cook_pot/modules/recipes/bloc/recipes_bloc.dart';
 import 'package:cook_pot/utils/services/authentication_service.dart';
-import 'package:cook_pot/widgets/recipe_create_form.dart';
+import 'widgets/form/recipe_create_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +59,6 @@ class InitializationError extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, {bool listen = false}) {
     final repository = context.select((AuthenticationService r) => r);
@@ -68,9 +67,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthenticationBloc(repository)),
         BlocProvider(create: (context) => RecipesBloc()),
         BlocProvider(
-            create: (context) => RegistrationBloc(
-                userRepository: repository,
-                authenticationService: AuthenticationService())),
+          create: (context) => RegistrationBloc(
+              userRepository: repository,
+              authenticationService: AuthenticationService()),
+        ),
       ],
       child: MaterialApp(
         title: 'Cook Pot',

@@ -1,4 +1,4 @@
-import 'package:cook_pot/widgets/field/registration_form.dart';
+import '../../../widgets/form/registration_form.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationFormScreen extends StatefulWidget {
