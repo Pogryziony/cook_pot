@@ -4,8 +4,8 @@ import 'package:cook_pot/bloc/login_bloc.dart';
 import 'package:cook_pot/core/auth/register/registration_form_screen.dart';
 import 'package:cook_pot/repository/test_repository.dart';
 import 'package:cook_pot/utils/services/authentication_service.dart';
-import 'package:cook_pot/widgets/field/registration_form.dart';
-import 'package:cook_pot/widgets/login_form.dart';
+import '../../widgets/form/registration_form.dart';
+import '../../widgets/form/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
