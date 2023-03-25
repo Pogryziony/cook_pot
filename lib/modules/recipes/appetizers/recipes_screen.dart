@@ -6,6 +6,7 @@ import 'package:cook_pot/widgets/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RecipesScreen extends StatefulWidget {
   static var routeName = '/recipeScreen';
@@ -35,14 +36,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Open search module',
-            onPressed: () {
-              // TODO handle the press
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.dehaze_outlined),
+            icon: const Icon(MdiIcons.filter),
             tooltip: 'Open filter module',
             onPressed: () {
               showDialog(
@@ -112,7 +106,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                     index: index,
                     name: recipe[index].name.toString(),
                     image: recipe[index].image,
-                    preparationTime: recipe[index].preparationTime.toString(),
+                    preparationTime: recipe[index].preparationTime.toStringAsFixed(0),
                     difficulty: recipe[index].difficulty,
                     ingredients: recipe[index].ingredients,
                     preparationSteps: recipe[index].preparationSteps,

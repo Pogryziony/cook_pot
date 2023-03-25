@@ -42,41 +42,6 @@ class MainMenuScreen extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('My profile'),
-                onTap: () => {},
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.article),
-                title: Text('My recipes'),
-                onTap: () => {},
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.favorite),
-                title: const Text('Favourites'),
-                onTap: () => {},
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.app_settings_alt_rounded),
-                title: const Text('Settings'),
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                      return SettingsScreen();
-                    }),
-                  )
-                },
-              ),
-            ),
             BlocConsumer<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {},
                 builder: (context, state) {

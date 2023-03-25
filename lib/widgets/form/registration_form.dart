@@ -181,7 +181,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         return WelcomeScreen();
                       }),
                     );
-                  } else {}
+                  }
                 },
                 child: Text('Register'),
               );

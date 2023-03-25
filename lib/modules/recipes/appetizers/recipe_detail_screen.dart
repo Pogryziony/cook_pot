@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final index;
@@ -53,11 +51,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: 300,
+                height: 450,
                 width: MediaQuery.of(context).size.width,
                 child: Image(
                   image: NetworkImage(widget.image),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               Padding(padding: EdgeInsets.only(top: 10)),
@@ -104,10 +102,128 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                 ],
               ),
-              Text('Ingredients:'),
-              Text(widget.ingredients.toString()),
-              Text('Preparation steps:'),
-              Text(widget.preparationSteps.toString()),
+              SizedBox(
+                height: 17,
+              ),
+              Text(
+                'Ingredients',
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(width: 3, color: Colors.lightGreen),
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(10))),
+                margin: const EdgeInsets.all(20),
+                width: double.infinity,
+                height: 250,
+                child: ListView.builder(
+                  itemBuilder: (context, index) => Card(
+                    elevation: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 12),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            child: Text(
+                              'Ingredient ${(index + 1)}',
+                              style: Theme.of(context).textTheme.labelLarge,
+                              maxLines: 2,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          Flexible(
+                              fit: FlexFit.loose,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      widget.ingredients[index]['name'].toString(),
+                                      style: Theme.of(context).textTheme.bodyLarge,
+                                      overflow: TextOverflow.fade,
+                                      maxLines: 2,
+                                      softWrap: false,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.ingredients[index]['quantity'].toString(),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                    overflow: TextOverflow.fade,
+                                    softWrap: true,
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  itemCount: widget.ingredients.length,
+                ),
+              ),
+              SizedBox(
+                height: 17,
+              ),
+              Text(
+                'Steps',
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(width: 3, color: Colors.lightGreen),
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(15))),
+                margin: const EdgeInsets.all(20),
+                width: double.infinity,
+                height: 300,
+                child: ListView.builder(
+                  itemBuilder: (context, index) => Card(
+                    elevation: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 12),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            child: Text(
+                              'Step ${(index + 1)}',
+                              style: Theme.of(context).textTheme.labelLarge,
+                              maxLines: 2,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          Flexible(
+                              fit: FlexFit.loose,
+                              child: Text(
+                                widget.preparationSteps[index]['step'].toString(),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                overflow: TextOverflow.fade,
+                                maxLines: 8,
+                                softWrap: true,
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  itemCount: widget.preparationSteps.length,
+                ),
+              ),
             ],
           ),
         ),
@@ -119,13 +235,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 chooseDifficultyIcon(difficulty) {
   if (difficulty == "Easy") {
     return Icon(
-      MaterialCommunityIcons.signal_cellular_1,
+      MdiIcons.chevronUp,
       size: 36,
     );
   } else if (difficulty == "Medium") {
-    return Icon(MaterialCommunityIcons.signal_cellular_2, size: 36);
+    return Icon(MdiIcons.chevronDoubleUp, size: 36);
   } else if (difficulty == 'Hard')
-    return Icon(MaterialCommunityIcons.signal_cellular_3, size: 36);
+    return Icon(MdiIcons.chevronTripleUp, size: 36);
 }
 
 Widget getTextWidgets(List<dynamic> strings) {

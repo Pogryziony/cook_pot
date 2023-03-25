@@ -1,10 +1,6 @@
-import 'package:cook_pot/modules/recipes/appetizers/recipe_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard(
@@ -38,7 +34,7 @@ class RecipeCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: Image.network(assetPath).image,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -120,17 +116,17 @@ class RecipeCard extends StatelessWidget {
 chooseDifficultyIconOnRecipeCard(difficulty) {
   if (difficulty == "Easy") {
     return Icon(
-      MaterialCommunityIcons.signal_cellular_1,
+      MdiIcons.chevronUp,
       size: 20,
     );
   } else if (difficulty == "Medium") {
     return Icon(
-      MaterialCommunityIcons.signal_cellular_2,
+      MdiIcons.chevronDoubleUp,
       size: 20,
     );
   } else if (difficulty == 'Hard')
     return Icon(
-      MaterialCommunityIcons.signal_cellular_3,
+      MdiIcons.chevronTripleUp,
       size: 20,
     );
 }

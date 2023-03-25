@@ -367,8 +367,8 @@ class _RecipeCreateFormState extends State<RecipeCreateForm> {
         AddRecipeEvent(
           Recipe(
             name: _recipeNameController.text,
-            image:
-                'https://www.thespruceeats.com/thmb/dA8o8EZpjJyeocYZNpzfknoKh2s=/4351x3263/smart/filters:no_upscale()/baked-stuffed-potatoes-482217-hero-01-850f2d87fe80403f923e140dbf5f1bf3.jpg',
+            image:_imageUrl.text,
+              //  'https://www.thespruceeats.com/thmb/dA8o8EZpjJyeocYZNpzfknoKh2s=/4351x3263/smart/filters:no_upscale()/baked-stuffed-potatoes-482217-hero-01-850f2d87fe80403f923e140dbf5f1bf3.jpg',
             ingredients: entries,
             difficulty: _difficultyValue,
             preparationTime: _preparationTime,
